@@ -1,17 +1,23 @@
 pipeline {
   agent any
   options { timestamps() }
-  // For webhook builds, leave triggers empty here and check the webhook box in job UI
-  // For polling fallback, uncomment:
-  // triggers { pollSCM('H/1 * * * *') }
 
   stages {
+
     stage('Checkout') {
       steps {
         checkout scm
       }
     }
-    stage('Build') {
+
+    stage('System Info') {
+      steps {
+        bat 'echo Running on Windows & ver'
+        bat 'echo Current directory: & cd'
+      }
+    }
+
+    stage('Run Build Script') {
       steps {
         bat """
           echo Starting Windows build...
@@ -19,15 +25,11 @@ pipeline {
         """
       }
     }
-  }
 
-  post {
-    success {
-      echo 'Build pipeline completed successfully.'
-      archiveArtifacts artifacts: 'build.bat', fingerprint: true
-    }
-    failure {
-      echo 'Build failed. Check console logs.'
+    stage('End') {
+      steps {
+        echo "Pipeline completed successfully!"
+      }
     }
   }
 }
