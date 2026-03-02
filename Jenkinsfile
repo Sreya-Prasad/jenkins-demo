@@ -16,6 +16,20 @@ pipeline {
 
   stages {
 
+    //---------Credential Testing---------------
+    stage('Credentials Test') {
+      steps {
+        withCredentials([string(credentialsId: 'my-github-username', variable: 'USER')]) {
+          bat """
+            echo Your GitHub username is: %USER%
+            echo First 3 characters are:
+            echo %USER:~0,3%
+          """
+          }
+        }
+      }
+
+    
     stage('Checkout') {
       steps {
         checkout scm
