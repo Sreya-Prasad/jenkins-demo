@@ -8,4 +8,5 @@ timeout /t 2 /nobreak >nul 2>&1
 
 echo Build completed!
 endlocal
+
 exit /b 0
