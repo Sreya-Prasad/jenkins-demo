@@ -1,4 +1,4 @@
-# jenkins-demo
+# Jenkins-GitHub Project
 This a Jenkins practice project (GitHub + Jenkins Integration).
 
 ## Line‑by‑line explanation of build.bat
