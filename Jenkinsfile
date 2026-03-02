@@ -16,6 +16,14 @@ pipeline {
 
   stages {
 
+    stage('Build (dev only)') {
+      when { branch 'dev' }
+        steps {
+            bat 'echo Building DEV branch...'
+            bat 'call build.bat'
+            }
+      }
+
     stage('Checkout') {
       steps {
         checkout scm
