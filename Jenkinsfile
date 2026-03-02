@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent { label 'windows' }
   options { timestamps() }
 
   // ---------- Input Parameters ----------
@@ -16,6 +16,14 @@ pipeline {
 
   stages {
 
+//---------------Jenkins Agent or Node--------------------
+   stage('Agent Test') {
+      steps {
+        bat "echo Running on agent: %COMPUTERNAME%"
+      }
+    }
+
+//------------MUltibranch Pipeline----------------
     stage('Build (dev only)') {
       when { branch 'dev' }
         steps {
