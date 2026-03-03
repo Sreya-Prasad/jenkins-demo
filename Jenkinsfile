@@ -31,6 +31,9 @@ pipeline {
             bat 'call build.bat'
             }
       }
+
+
+    
 //--------------Parallel Jobs-----------
     stage('Parallel Jobs') {
   parallel {
@@ -62,7 +65,9 @@ pipeline {
     }
   }
 }
-//-------------Pipeline--------------
+    
+    
+    //-------------Pipeline--------------
     stage('Checkout') {
       steps {
         checkout scm
@@ -90,6 +95,17 @@ pipeline {
       }
     }
 
+//-------------------Jenkins Input----------------------
+    
+    stage('Approval Required') {
+      steps {
+        script {
+          input(message: 'Do you approve moving to the next stage?', ok: 'Approve')
+            }
+          }
+        }
+
+//-----------If approved continue-----------
     stage('Tests (conditional)') {
       when {
         expression { return params.RUN_TESTS == true }
