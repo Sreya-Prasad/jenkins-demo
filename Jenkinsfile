@@ -31,7 +31,38 @@ pipeline {
             bat 'call build.bat'
             }
       }
+//--------------Parallel Jobs-----------
+    stage('Parallel Jobs') {
+  parallel {
+    stage('Check A') {
+      steps {
+        bat """
+          echo Running Job A...
+          ping -n 3 127.0.0.1 >nul
+        """
+      }
+    }
 
+    stage('Check B') {
+      steps {
+        bat """
+          echo Running Job B...
+          ping -n 3 127.0.0.1 >nul
+        """
+      }
+    }
+
+    stage('Check C') {
+      steps {
+        bat """
+          echo Running Job C...
+          ping -n 3 127.0.0.1 >nul
+        """
+      }
+    }
+  }
+}
+//-------------Pipeline--------------
     stage('Checkout') {
       steps {
         checkout scm
@@ -85,6 +116,8 @@ pipeline {
     }
   }
 
+  
+//--------------------Post-Build Actions---------------
   post {
     success {
       echo '✅ Build pipeline completed successfully.'
